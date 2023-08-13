@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&family=Nosifer&family=Teko:wght@300;400;500;600;700&family=Tektur:wght@600&family=Zen+Dots&display=swap');
+
 
 *{
   padding: 0;
@@ -8,12 +10,27 @@
 body{
   color: white;
   overflow: hidden;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Barriecito', cursive;
 }
 
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 100%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
 .top-container{
-  height: 40vh;
-  background-color: rgb(0, 115, 255);
+  height: 100vh;
+  background: rgb(36,14,0);
+background: linear-gradient(90deg, rgba(36,14,0,1) 0%, rgba(9,9,121,1) 35%, rgba(219,255,0,1) 100%);
+	animation: gradient 15s ease infinite;
 }
 
 .bottom-container{
@@ -65,8 +82,8 @@ body{
 
 #form button:hover{
   color:white;
-  background-color:  red;
-  border: 1px solid  red;
+  background-color:  rgb(0, 145, 255);
+  border: 1px solid  rgb(0, 115, 255);
   transform: scale(1.1);
 }
 
@@ -82,7 +99,7 @@ body{
   padding: 12px;
   color: red;
   background-color: #ffe6e6;
-  border: 1px solid red;
+  border: 1px solid rgb(106, 255, 0);
 }
 
 .success{
@@ -96,10 +113,10 @@ body{
 
 #download-btn{
   width: fit-content;
-  color: black;
+  color: rgb(199, 209, 15);
   padding: 12px;
   color: white;
-  background-color: red;
+  background-color: rgb(157, 251, 25);
   border-radius: 5px;
   text-decoration: none;
   box-shadow: 2px 2px 5px gray;
@@ -135,3 +152,46 @@ body{
     width: 50%;
   }
 }
+
+.footer{
+  display: flex;
+  color: black;
+
+}
+.page-note{
+  margin: 0;
+  padding: 0;
+  opacity: 0.5;
+  font-size: xx-large;
+  /* Starting position */
+ -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);	
+ transform:translateX(100%);
+ /* Apply animation to this element */	
+ -moz-animation: example1 25s linear infinite;
+ -webkit-animation: example1 5s linear infinite;
+ animation: example1 10s linear infinite;
+  
+
+}
+/* Move it (define the animation) */
+@-moz-keyframes example1 {
+  0%   { -moz-transform: translateX(100%); }
+  100% { -moz-transform: translateX(-100%); }
+ }
+ @-webkit-keyframes example1 {
+  0%   { -webkit-transform: translateX(100%); }
+  100% { -webkit-transform: translateX(-100%); }
+ }
+ @keyframes example1 {
+  0%   { 
+  -moz-transform: translateX(100%); /* Firefox bug fix */
+  -webkit-transform: translateX(100%); /* Firefox bug fix */
+  transform: translateX(100%); 		
+  }
+  100% { 
+  -moz-transform: translateX(-100%); /* Firefox bug fix */
+  -webkit-transform: translateX(-100%); /* Firefox bug fix */
+  transform: translateX(-100%); 
+  }
+ }

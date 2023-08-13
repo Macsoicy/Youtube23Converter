@@ -1,6 +1,8 @@
 //required package
 const express = require("express");
 const fetch = require("node-fetch");
+const path = require("path");  // Explicitly include the path module
+const fs = require("fs"); // Include the fs module
 require("dotenv").config();
 
 //create the express server
@@ -25,6 +27,25 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/downloads/:filename", (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(__dirname, "public", "downloads", filename);
+  
+    // Ensure the file exists
+    if (fs.existsSync(filePath)) {
+      // Set headers to trigger a download
+      res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+      res.setHeader("Content-Type", "audio/mpeg");
+  
+      // Stream the MP3 file directly to the response
+      const fileStream = fs.createReadStream(filePath);
+      fileStream.pipe(res);
+    } else {
+      res.status(404).send("File not found");
+    }
+  });
+  
+
 app.post("/convert-mp3", async (req, res) => {
   const videoID = req.body.videoID;
   if (videoID === undefined || videoID === "" || videoID === null) {
@@ -38,8 +59,8 @@ app.post("/convert-mp3", async (req, res) => {
       {
         method: "GET",
         headers: {
-          "x-rapidapi-key" : process.env.API_KEY,
-          "x-rapidapi-host" : process.env.API_HOST,
+          "X-RapidAPI-Key" : process.env.API_KEY,
+          "X-RapidAPI-Host": process.env.API_HOST,
         },
       }
     );

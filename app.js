@@ -1,7 +1,7 @@
 //required package
 const express = require("express");
 const fetch = require("node-fetch");
-const path = require("path");  // Explicitly include the path module
+const path = require("path"); // Explicitly include the path module
 const fs = require("fs"); // Include the fs module
 require("dotenv").config();
 
@@ -28,23 +28,22 @@ app.get("/", (req, res) => {
 });
 
 app.get("/downloads/:filename", (req, res) => {
-    const { filename } = req.params;
-    const filePath = path.join(__dirname, "public", "downloads", filename);
-  
-    // Ensure the file exists
-    if (fs.existsSync(filePath)) {
-      // Set headers to trigger a download
-      res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
-      res.setHeader("Content-Type", "audio/mpeg");
-  
-      // Stream the MP3 file directly to the response
-      const fileStream = fs.createReadStream(filePath);
-      fileStream.pipe(res);
-    } else {
-      res.status(404).send("File not found");
-    }
-  });
-  
+  const { filename } = req.params;
+  const filePath = path.join(__dirname, "public", "downloads", filename);
+
+  // Ensure the file exists
+  if (fs.existsSync(filePath)) {
+    // Set headers to trigger a download
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+    res.setHeader("Content-Type", "audio/mpeg");
+
+    // Stream the MP3 file directly to the response
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+  } else {
+    res.status(404).send("File not found");
+  }
+});
 
 app.post("/convert-mp3", async (req, res) => {
   const videoID = req.body.videoID;
@@ -59,7 +58,7 @@ app.post("/convert-mp3", async (req, res) => {
       {
         method: "GET",
         headers: {
-          "X-RapidAPI-Key" : process.env.API_KEY,
+          "X-RapidAPI-Key": process.env.API_KEY,
           "X-RapidAPI-Host": process.env.API_HOST,
         },
       }
@@ -71,12 +70,12 @@ app.post("/convert-mp3", async (req, res) => {
       return res.render("index", {
         success: true,
         song_title: fetchResponse.title,
-        song_link : fetchResponse.link,
+        song_link: fetchResponse.link,
       });
     else
       return res.render("index", {
         success: false,
-        message : fetchResponse.msg,
+        message: fetchResponse.msg,
       });
   }
 });
